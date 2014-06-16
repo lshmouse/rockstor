@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.rockstor</groupId>
+		<artifactId>rockstor</artifactId>
+		<version>0.2.4</version>
+		<relativePath>../</relativePath>
+	</parent>
+
+	<artifactId>rockstor-console</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<version>2.0.11.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>apache-log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+          <encoding>UTF-8</encoding>
+					<appendAssemblyId>false</appendAssemblyId>
+					<descriptors>
+						<descriptor>src/main/assembly/deployment.xml</descriptor>
+					</descriptors>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

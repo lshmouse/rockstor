@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.rockstor</groupId>
+	<artifactId>rockstor</artifactId>
+	<version>0.2.4</version>
+	<packaging>pom</packaging>
+	<description>
+    Build rockstore for rock store Web Service
+	</description>
+	<modules>
+		<module>sdk</module>
+		<module>server</module>
+		<module>sample</module>
+		<module>console</module>
+	</modules>
+	<properties>
+		<hbase.version>0.94.2-cdh4.2.1</hbase.version>
+		<hadoop.version>2.0.0-cdh4.2.1</hadoop.version>
+	  <jetty.version>7.1.6.v20100715</jetty.version>
+	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache.hbase</groupId>
+				<artifactId>hbase</artifactId>
+	      <version>${hbase.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-client</artifactId>
+	      <version>${hadoop.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-xml</artifactId>
+	      <version>${jetty.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-server</artifactId>
+	      <version>${jetty.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>
