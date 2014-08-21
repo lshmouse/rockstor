@@ -28,6 +28,10 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -52,5 +56,13 @@
 				</configuration>
 			</plugin>
 		</plugins>
+    <resources>                                                                                          
+      <resource>                                                                                         
+        <directory>src/main/resources/</directory>                                                       
+        <includes>                                                                                       
+          <include>rockstor-default.xml</include>                                                           
+        </includes>                                                                                      
+      </resource>    
+    </resources>
 	</build>
 </project>

@@ -28,7 +28,7 @@ cwd=`pwd`
 if [ -d .svn ]; then
   revision=`svn info | sed -n -e 's/Last Changed Rev: \(.*\)/\1/p'`
   url=`svn info | sed -n -e 's/URL: \(.*\)/\1/p'`
-elif [ -d .git ]; then
+elif git status > /dev/null 2>&1; then
   revision=`git log -1 --pretty=format:"%H"`
   hostname=`hostname`
   url="git://${hostname}${cwd}"
