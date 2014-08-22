@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.rockstor.clientsample;
+package com.rockstor.client;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -33,48 +31,29 @@ import com.rockstor.client.ListBucketResult;
 import com.rockstor.client.RockStor;
 import com.rockstor.client.RockStorException;
 
-public class Sample {
-
-    static String address = "10.24.1.10:48080";
-    static String username = "testuser";
-
-    private static void hint() {
-        System.out.println("Continue? [yes]/[no]");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                System.in));
-        try {
-            String command = reader.readLine();
-            if ("no".equals(command.trim())) {
-                System.exit(0);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-    }
-
+public class Examples {
+    private final static String address = "localhost:48080";
+    private final static String username = "testuser";
+    private final static String bucket = "bucket";
+    
     private static void testRockStor() {
         try {
 
             System.out.println("TEST getService");
-            hint();
             RockStor rs = new RockStor(address, username);
             ListAllMyBucketsResult r = rs.getService();
             System.out.println(r);
 
             System.out.println("TEST createBucket");
-            hint();
-            rs.createBucket("bucket3");
+            rs.createBucket(bucket);
             r = rs.getService();
             System.out.println(r);
 
             System.out.println("TEST getBucketAcl");
-            hint();
-            AccessControlList acl = rs.getBucketAcl("bucket3");
+            AccessControlList acl = rs.getBucketAcl(bucket);
             System.out.println(acl);
 
             System.out.println("TEST setBucketAcl");
-            hint();
             acl = new AccessControlList();
             AclEntry ae = new AclEntry();
             ae.setUser("schubert");
@@ -82,65 +61,57 @@ public class Sample {
             ArrayList<AclEntry> list = new ArrayList<AclEntry>();
             list.add(ae);
             acl.setAclEntrys(list);
-            rs.setBucketAcl("bucket3", acl);
-            acl = rs.getBucketAcl("bucket3");
+            rs.setBucketAcl(bucket, acl);
+            acl = rs.getBucketAcl(bucket);
             System.out.println(acl);
 
             System.out.println("TEST getBucket");
-            hint();
-            ListBucketResult r2 = rs.getBucket("bucket3");
+            ListBucketResult r2 = rs.getBucket(bucket);
             System.out.println(r2);
 
             System.out.println("TEST putObject");
-            hint();
-            File testFile = new File("D:/a.txt");
+            File testFile = new File("/home/liushaohui/client.log");
             FileInputStream fis = new FileInputStream(testFile);
-            rs.putObject("bucket3", "testobject", null, null, null,
+            rs.putObject(bucket, "testobject", null, null, null,
                     (int) testFile.length(), fis);
             fis.close();
-            r2 = rs.getBucket("bucket3");
+            r2 = rs.getBucket(bucket);
             System.out.println(r2);
 
             System.out.println("TEST headObject");
-            hint();
-            Map<String, String> metas = rs.headObject("bucket3", "testobject");
+            Map<String, String> metas = rs.headObject(bucket, "testobject");
             for (Map.Entry<String, String> e : metas.entrySet()) {
                 System.out.println(e.getKey() + " : " + e.getValue());
             }
 
             System.out.println("TEST setObjectMeta");
-            hint();
             metas.clear();
             metas.put("rockstor-meta-key1", "value1");
             metas.put("rockstor-meta-key2", "value2");
             metas.put("rockstor-meta-key3", "value3");
-            rs.setObjectMeta("bucket3", "testobject", metas);
+            rs.setObjectMeta(bucket, "testobject", metas);
 
             System.out.println("TEST getObjectMeta");
-            hint();
             ArrayList m = new ArrayList<String>();
             m.add("rockstor-meta-key1");
-            metas = rs.getObjectMeta("bucket3", "testobject", null);
+            metas = rs.getObjectMeta(bucket, "testobject", null);
             System.out.println(metas);
-            metas = rs.getObjectMeta("bucket3", "testobject", m);
+            metas = rs.getObjectMeta(bucket, "testobject", m);
             System.out.println(metas);
 
             System.out.println("TEST deleteObjectMeta");
-            hint();
-            rs.deleteObjectMeta("bucket3", "testobject", m);
-            metas = rs.getObjectMeta("bucket3", "testobject", null);
+            rs.deleteObjectMeta(bucket, "testobject", m);
+            metas = rs.getObjectMeta(bucket, "testobject", null);
             System.out.println(metas);
-            rs.deleteObjectMeta("bucket3", "testobject", null);
-            metas = rs.getObjectMeta("bucket3", "testobject", null);
+            rs.deleteObjectMeta(bucket, "testobject", null);
+            metas = rs.getObjectMeta(bucket, "testobject", null);
             System.out.println(metas);
 
             System.out.println("TEST getObjectAcl");
-            hint();
-            acl = rs.getObjectAcl("bucket3", "testobject");
+            acl = rs.getObjectAcl(bucket, "testobject");
             System.out.println(acl);
 
             System.out.println("TEST setObjectAcl");
-            hint();
             acl = new AccessControlList();
             ae = new AclEntry();
             ae.setUser("schubert");
@@ -148,15 +119,14 @@ public class Sample {
             list = new ArrayList<AclEntry>();
             list.add(ae);
             acl.setAclEntrys(list);
-            rs.setObjectAcl("bucket3", "testobject", acl);
-            acl = rs.getObjectAcl("bucket3", "testobject");
+            rs.setObjectAcl(bucket, "testobject", acl);
+            acl = rs.getObjectAcl(bucket, "testobject");
             System.out.println(acl);
 
             System.out.println("TEST getObject");
-            hint();
-            InputStream is = rs.getObject("bucket3", "testobject");
+            InputStream is = rs.getObject(bucket, "testobject");
             FileOutputStream fos = new FileOutputStream(
-                    new File("d:/a.bak.txt"));
+                    new File("/home/liushaohui/client.log.backup"));
             byte[] buf = new byte[4096];
             int len = 0;
             while ((len = is.read(buf)) > 0) {
@@ -164,14 +134,10 @@ public class Sample {
             }
             fos.close();
             is.close();
-
             System.out.println("TEST deleteObject");
-            hint();
-            rs.deleteObject("bucket3", "testobject");
-
+            rs.deleteObject(bucket, "testobject");
             System.out.println("TEST deleteBucket");
-            hint();
-            rs.deleteBucket("bucket3");
+            rs.deleteBucket(bucket);
             r = rs.getService();
             System.out.println(r);
 
