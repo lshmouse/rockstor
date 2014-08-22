@@ -189,8 +189,6 @@ public class RockStorFsFormat implements Closeable, Tool {
                 tbName = entry.getKey();
                 ha.createTable(entry.getValue(), tbSplitMap.get(tbName));
                 LOG.info("created table " + tbName);
-                ha.enableTable(tbName);
-                LOG.info("enabled table " + tbName);
             }
         } catch (MasterNotRunningException e) {
             e.printStackTrace();
