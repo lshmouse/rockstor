@@ -51,11 +51,11 @@
     </init-param>
     <init-param>
       <param-name>rest.site</param-name>
-      <param-value>http://10.24.1.252:8080/</param-value>
+      <param-value>http://localhost:48080/</param-value>
     </init-param>
     <init-param>
       <param-name>public.site</param-name>
-      <param-value>http://10.24.1.252:8080/</param-value>
+      <param-value>http://localhost:48080/</param-value>
     </init-param>
   </servlet>
 
