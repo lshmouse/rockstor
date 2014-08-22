@@ -30,7 +30,7 @@
   <!--- global properties -->
   <property>
     <name>rockstor.rootdir</name>
-    <value>hdfs://nd1-rack2-cloud:9000/rockstor</value>
+    <value>hdfs://localhost:9000/rockstor</value>
     <description>The directory shared by region servers and into
     which RockStor persists.  The URL should be 'fully-qualified'
     to include the filesystem scheme.  For example, to specify the
@@ -69,13 +69,8 @@
 
   <!-- hbase conf -->
   <property>
-    <name>hbase.master</name>
-    <value>nd1-rack2-cloud:60000</value>
-  </property>
-
-  <property>
     <name>hbase.zookeeper.quorum</name>
-    <value>nd1-rack2-cloud</value>
+    <value>localhost</value>
   </property>
 
   <property>
@@ -112,7 +107,7 @@
 
   <property>
     <name>rockstor.table.cf.compressionType</name>
-    <value>LZO</value>
+    <value>NONE</value>
     <description>
       LZO,GZ,NONE
     </description>
@@ -120,7 +115,7 @@
 
   <property>
     <name>rockstor.table.cf.compactionCompressType</name>
-    <value>LZO</value>
+    <value>NONE</value>
     <description>
       LZO,GZ,NONE
     </description>
