@@ -9,9 +9,8 @@
     Build rockstore for rock store Web Service
 	</description>
 	<modules>
-		<module>sdk</module>
 		<module>server</module>
-		<module>sample</module>
+		<module>sdk</module>
 		<module>console</module>
 	</modules>
 	<properties>
